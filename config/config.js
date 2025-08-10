@@ -1,5 +1,5 @@
 window.CONFIG = {
-  apiBase: "https://brj-orders.vercel.app",
+  apiBase: "https://bakpia-rasa-jogja.vercel.app",
   waNumber: "6282326201440",
   alamatToko: "Jl. Malioboro No. 123, Yogyakarta",
   instagram: "bakpiarasajogja",
