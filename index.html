@@ -10,21 +10,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root{--gold:#D4AF37;--cokelat:#5a3e2b;--creme:#fff9f2;--text:#2b2b2b;--muted:#6f6f6f;--radius:18px;--shadow:0 10px 24px rgba(0,0,0,.08)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:'Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}img{max-width:100%;display:block}a{text-decoration:none;color:inherit}button{font-family:inherit}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:'Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}img{max-width:100%;display:block}a{text-decoration:none;color:inherit}button{font-family:inherit;cursor:pointer}
     .nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #eee}.nav .wrap{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
     .brand{display:flex;align-items:center;gap:12px}.brand-logo{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#f7e9a7);display:grid;place-items:center;color:#4a3a20;font-weight:800;box-shadow:var(--shadow)}.brand-name{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--cokelat)}
-    .menu{display:flex;gap:20px}.menu a{padding:8px 10px;border-radius:10px;color:#333;font-weight:600}.menu a:hover{background:#f7f7f7}.cta-wa{background:var(--gold);color:#3b2d12;padding:10px 14px;border-radius:12px;font-weight:700;box-shadow:var(--shadow)}
-    .hero{position:relative}.hero .wrap{max-width:1100px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:56px 20px}.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);line-height:1.1;margin:0;color:var(--cokelat)}.hero-sub{margin:14px 0 22px;color:#3d3d3d;font-size:1.05rem}.hero-cta{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:14px;font-weight:700;cursor:pointer}.btn-primary{background:var(--cokelat);color:#fff;box-shadow:var(--shadow)}.btn-outline{border:2px solid var(--cokelat);color:var(--cokelat);background:#fff}.hero-img{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}.badge{display:inline-flex;align-items:center;gap:8px;background:var(--creme);border:1px solid #f0e6d8;color:#6a4a33;padding:6px 10px;border-radius:999px;font-weight:700}
-    section{padding:72px 20px}.container{max-width:1100px;margin:auto}.section-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,36px);margin:0 0 10px;color:var(--cokelat)}.section-sub{color:var(--muted);margin:0 0 30px}
-    .about{background:linear-gradient(180deg,#fff,#fffaf3)}.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}.card{background:#fff;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border:1px solid #f3efe9}.list{display:grid;gap:10px;margin:16px 0 0;padding:0}.list li{list-style:none;display:flex;gap:10px;align-items:flex-start}
-    .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.product{background:#fff;border:1px solid #eee;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}.product-body{padding:16px}.price{color:var(--cokelat);font-weight:800;font-size:1.1rem}
-    .testi{background:linear-gradient(180deg,#fffaf3,#fff)}.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.quote{background:#fff;border:1px solid #eee;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}.quote .who{display:flex;align-items:center;gap:12px;margin-top:12px}.avatar{width:44px;height:44px;border-radius:50%;object-fit:cover}
-    .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.step{background:#fff;border:1px solid #eee;border-radius:var(--radius);padding:18px;text-align:center;box-shadow:var(--shadow)}.step b{display:block;margin-bottom:6px;color:var(--cokelat)}
-    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.map{border:0;width:100%;height:360px;border-radius:var(--radius);box-shadow:var(--shadow)}
-    footer{background:var(--cokelat);color:#f3e9db;padding:30px 20px}.foot{max-width:1100px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}.small{color:#e3d6c6}
-    @media (max-width:960px){.hero .wrap,.about-grid,.contact-grid,.foot{grid-template-columns:1fr}}
-    @media (max-width:840px){.products-grid,.testi-grid,.steps-grid{grid-template-columns:1fr 1fr}}
-    @media (max-width:560px){.menu{display:none}.products-grid,.testi-grid,.steps-grid{grid-template-columns:1fr}.hero .wrap{grid-template-columns:1fr}}
+    .menu{display:flex;gap:20px;flex-wrap:wrap}.menu a{padding:8px 10px;border-radius:10px;color:#333;font-weight:600}.menu a:hover{background:#f7f7f7}
+    .cta-wa{background:var(--gold);color:#3b2d12;padding:10px 14px;border-radius:12px;font-weight:700;box-shadow:var(--shadow)}
+    .hero .wrap{max-width:1100px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:56px 20px}
+    .hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);line-height:1.1;margin:0;color:var(--cokelat)}.hero-sub{margin:14px 0 22px;color:#3d3d3d;font-size:1.05rem}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:14px;font-weight:700}
+    .btn-primary{background:var(--cokelat);color:#fff;box-shadow:var(--shadow)}.btn-outline{border:2px solid var(--cokelat);color:var(--cokelat);background:#fff}
+    .hero-img{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    section{padding:72px 20px}.container{max-width:1100px;margin:auto}
+    .section-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,36px);margin:0 0 10px;color:var(--cokelat)}.section-sub{color:var(--muted);margin:0 0 30px}
+    .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .product{background:#fff;border:1px solid #eee;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}.product-body{padding:16px}.price{color:var(--cokelat);font-weight:800;font-size:1.1rem}
+    .card{background:#fff;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border:1px solid #f3efe9}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .small{color:#6f6f6f}
+    footer{background:var(--cokelat);color:#f3e9db;padding:30px 20px}.foot{max-width:1100px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}
+    @media (max-width:960px){.hero .wrap,.grid-2{grid-template-columns:1fr}}
+    @media (max-width:840px){.products-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.menu{display:none}.products-grid{grid-template-columns:1fr}.hero .wrap{grid-template-columns:1fr}}
+
+    /* Modal Invoice */
     .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);z-index:80}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);max-width:780px;width:95%;padding:18px}
@@ -34,13 +42,14 @@
     .inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .inv-table{width:100%;border-collapse:collapse;margin-top:12px}
     .inv-table th,.inv-table td{border:1px solid #eee;padding:8px;text-align:left}
-    .print-area{padding:6px}
   </style>
 </head>
 <body>
+
+  <!-- NAV -->
   <nav class="nav">
     <div class="wrap">
-      <a href="#" class="brand" aria-label="Beranda Bakpia Rasa Jogja">
+      <a href="#" class="brand" aria-label="Beranda">
         <div class="brand-logo">BRJ</div>
         <div class="brand-name">Bakpia Rasa Jogja</div>
       </a>
@@ -51,19 +60,20 @@
         <a href="#cara-pesan">Cara Pesan</a>
         <a href="#order">Form Order</a>
         <a href="#kontak">Kontak</a>
-        <a class="cta-wa" id="cta-wa" href="#" target="_blank" rel="noopener">Pesan via WhatsApp</a>
+        <a id="btnPesanWA" class="cta-wa" href="#">Pesan via WhatsApp</a>
       </div>
     </div>
   </nav>
 
+  <!-- HERO -->
   <header class="hero" role="banner">
     <div class="wrap container">
       <div>
-        <span class="badge">Sejak 1985 • Resep Keluarga</span>
+        <span class="small" style="background:#fff3c4;border:1px solid #ffe49e;padding:6px 10px;border-radius:999px;font-weight:700;color:#6a4a33">Sejak 1985 • Resep Keluarga</span>
         <h1 class="hero-title">Bakpia Premium Khas Yogyakarta</h1>
         <p class="hero-sub">Lembut di mulut, manis di hati — oleh-oleh terbaik dari Jogja.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" id="hero-wa" href="#" target="_blank" rel="noopener">💬 Pesan Sekarang</a>
+          <a id="btnPesanSekarang" class="btn btn-primary" href="#">💬 Pesan Sekarang</a>
           <a class="btn btn-outline" href="#produk">Lihat Varian</a>
         </div>
       </div>
@@ -73,24 +83,83 @@
     </div>
   </header>
 
-  <section id="produk">
-    <div class="container">
-      <h2 class="section-title">Produk Unggulan</h2>
-      <div class="products-grid">
-        <article class="product"><img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=1200&auto=format&fit=crop" alt="Bakpia Kacang Hijau" loading="lazy" /><div class="product-body"><h3>Bakpia Kacang Hijau</h3><p class="price">Rp 35.000/box</p><a class="btn btn-primary order-var" data-varian="Bakpia Kacang Hijau" data-price="35000" href="#order">Pesan Varian Ini</a></div></article>
-        <article class="product"><img src="https://images.unsplash.com/photo-1552689486-f6773047d19f?q=80&w=1200&auto=format&fit=crop" alt="Bakpia Keju" loading="lazy" /><div class="product-body"><h3>Bakpia Keju</h3><p class="price">Rp 38.000/box</p><a class="btn btn-primary order-var" data-varian="Bakpia Keju" data-price="38000" href="#order">Pesan Varian Ini</a></div></article>
-        <article class="product"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1200&auto=format&fit=crop" alt="Bakpia Cokelat" loading="lazy" /><div class="product-body"><h3>Bakpia Cokelat</h3><p class="price">Rp 37.000/box</p><a class="btn btn-primary order-var" data-varian="Bakpia Cokelat" data-price="37000" href="#order">Pesan Varian Ini</a></div></article>
+  <!-- TENTANG -->
+  <section id="tentang">
+    <div class="container grid-2">
+      <div>
+        <h2 class="section-title">Tentang Kami</h2>
+        <p>Kami membuat bakpia premium setiap hari dengan bahan terbaik dan resep turun-temurun. Fresh, halal, dan siap jadi teman kopi/teh Anda.</p>
+      </div>
+      <div class="card">
+        <b>Alamat Toko</b>
+        <div id="companyAddr" class="small">Jl. Malioboro No. 123, Yogyakarta</div>
+        <div id="companyPhone" class="small">+62 823-2620-1440</div>
       </div>
     </div>
   </section>
 
+  <!-- PRODUK -->
+  <section id="produk">
+    <div class="container">
+      <h2 class="section-title">Produk Unggulan</h2>
+      <div class="products-grid">
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=1200&auto=format&fit=crop" alt="Bakpia Kacang Hijau" loading="lazy" />
+          <div class="product-body">
+            <h3>Bakpia Kacang Hijau</h3><p class="price">Rp 35.000/box</p>
+            <a class="btn btn-primary order-var" data-varian="Bakpia Kacang Hijau" data-price="35000" href="#order">Pesan Varian Ini</a>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1552689486-f6773047d19f?q=80&w=1200&auto=format&fit=crop" alt="Bakpia Keju" loading="lazy" />
+          <div class="product-body">
+            <h3>Bakpia Keju</h3><p class="price">Rp 38.000/box</p>
+            <a class="btn btn-primary order-var" data-varian="Bakpia Keju" data-price="38000" href="#order">Pesan Varian Ini</a>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1200&auto=format&fit=crop" alt="Bakpia Cokelat" loading="lazy" />
+          <div class="product-body">
+            <h3>Bakpia Cokelat</h3><p class="price">Rp 37.000/box</p>
+            <a class="btn btn-primary order-var" data-varian="Bakpia Cokelat" data-price="37000" href="#order">Pesan Varian Ini</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONI -->
+  <section id="testimoni">
+    <div class="container">
+      <h2 class="section-title">Testimoni</h2>
+      <div class="grid-2">
+        <div class="card">“Kulitnya lembut, isiannya pas! Bakpia terenak.” — <b>Rani</b></div>
+        <div class="card">“Pesan online, dikirim cepat. Recommended!” — <b>Yoga</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARA PESAN -->
+  <section id="cara-pesan">
+    <div class="container">
+      <h2 class="section-title">Cara Pesan</h2>
+      <ol class="small">
+        <li>Pilih varian & jumlah.</li>
+        <li>Tentukan metode pengiriman & pembayaran.</li>
+        <li>Klik “Buat Invoice & Kirim”.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FORM ORDER -->
   <section id="order">
     <div class="container">
       <h2 class="section-title">Form Pemesanan</h2>
-      <div class="card" style="padding:16px;border:1px solid #eee;border-radius:18px;box-shadow:var(--shadow)">
+      <div class="card">
         <form id="orderForm" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
           <label>Nama Lengkap<br><input required name="nama" type="text" placeholder="Nama Anda" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px"></label>
           <label>No. WhatsApp<br><input required name="wa" type="tel" placeholder="08xxxxxxxxxx" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px"></label>
+
           <label>Varian<br>
             <select name="varian" id="varian" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px">
               <option value="Bakpia Kacang Hijau" data-price="35000">Bakpia Kacang Hijau — Rp35.000</option>
@@ -132,7 +201,7 @@
             </div>
             <div id="qrisWrap" style="margin-top:12px">
               <div class="small">Scan QRIS setelah submit. (Ganti gambar QRIS di konfigurasi.)</div>
-              <img id="qrisImg" alt="QRIS" style="max-width:240px;border-radius:12px;border:1px solid #eee;margin-top:8px" src="" />
+              <img id="qrisImg" alt="QRIS" style="max-width:240px;border-radius:12px;border:1px solid #eee;margin-top:8px" src="">
             </div>
             <div id="transferWrap" style="display:none;margin-top:12px">
               <div class="small">Rek Transfer:</div>
@@ -141,7 +210,6 @@
           </fieldset>
 
           <label style="grid-column:1 / -1">Kode Promo (opsional)<br><input id="promo" type="text" placeholder="Contoh: BAKPIA10" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px"></label>
-
           <label style="grid-column:1 / -1">Catatan Tambahan<br><textarea name="catatan" id="catatan" rows="3" placeholder="Contoh: kirim sore" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px"></textarea></label>
 
           <div style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center">
@@ -155,6 +223,19 @@
     </div>
   </section>
 
+  <!-- KONTAK -->
+  <section id="kontak">
+    <div class="container grid-2">
+      <div>
+        <h2 class="section-title">Kontak</h2>
+        <p><b>Instagram:</b> <span id="ig">@bakpiarasajogja</span></p>
+        <p><b>WhatsApp Toko:</b> <span id="waToko">6282326201440</span></p>
+      </div>
+      <iframe class="card" style="border:0;width:100%;height:300px" loading="lazy"
+        src="https://www.google.com/maps?q=Jl.+Malioboro,+Yogyakarta&output=embed"></iframe>
+    </div>
+  </section>
+
   <footer>
     <div class="foot">
       <div>
@@ -165,7 +246,7 @@
     </div>
   </footer>
 
-  <!-- Modal Invoice -->
+  <!-- MODAL INVOICE -->
   <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="invTitle">
     <div class="modal-card">
       <div class="modal-head">
@@ -176,7 +257,7 @@
         </div>
       </div>
       <div class="modal-body">
-        <div id="printArea" class="print-area">
+        <div id="printArea">
           <div class="invoice">
             <div class="inv-grid">
               <div>
@@ -211,35 +292,49 @@
     </div>
   </div>
 
-  <!-- CONFIG harus dimuat lebih dulu -->
-  <script src="config/config.js"></script>
+  <!-- ========== CONFIG (ubah di sini jika perlu) ========== -->
   <script>
-    // Default + override dari config/config.js
-    const DEFAULT_CONFIG = {
-      apiBase: '',
-      waNumber: '6282326201440',
-      alamatToko: 'Jl. Malioboro No. 123, Yogyakarta',
-      instagram: 'bakpiarasajogja',
-      bank: [],
-      qrisImgSrc: '',
-      invoice: { prefix:'INV-BRJ-', currency:'IDR', footerNote:'', company:{ address:'', phone:'' } }
+    window.CONFIG = {
+      apiBase: "https://bakpia-rasa-jogja.vercel.app",
+      waNumber: "6282326201440",
+      alamatToko: "Jl. Malioboro No. 123, Yogyakarta",
+      instagram: "bakpiarasajogja",
+      qrisImgSrc: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&auto=format&fit=crop",
+      bank: [
+        { bank: "BCA", no: "3210987654", an: "Bakpia Rasa Jogja" },
+        { bank: "Mandiri", no: "6543210987", an: "Bakpia Rasa Jogja" }
+      ],
+      invoice: {
+        prefix: "INV-BRJ-",
+        currency: "IDR",
+        footerNote: "Terima kasih telah berbelanja di Bakpia Rasa Jogja. Simpan invoice ini sebagai bukti pembayaran.",
+        company: { address: "Jl. Malioboro No. 123, Yogyakarta", phone: "+62 823-2620-1440" }
+      }
     };
-    const CONFIG = Object.assign({}, DEFAULT_CONFIG, window.CONFIG||{});
+  </script>
+
+  <!-- ========== SCRIPT UTAMA (form + API + modal) ========== -->
+  <script>
+    const CFG = Object.assign({}, window.CONFIG || {});
     const rupiah = (x)=> 'Rp ' + (Number(x)||0).toLocaleString('id-ID');
 
-    // Branding
+    // branding
     document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('invCompanyAddr').textContent = CONFIG.invoice.company.address || CONFIG.alamatToko;
-    document.getElementById('invCompanyPhone').textContent = CONFIG.invoice.company.phone || '';
+    document.getElementById('companyAddr').textContent = CFG.alamatToko;
+    document.getElementById('companyPhone').textContent = "+62 823-2620-1440";
+    document.getElementById('invCompanyAddr').textContent = CFG.invoice.company.address || CFG.alamatToko;
+    document.getElementById('invCompanyPhone').textContent = CFG.invoice.company.phone || '';
+    document.getElementById('ig').textContent = '@' + (CFG.instagram || 'bakpiarasajogja');
+    document.getElementById('waToko').textContent = CFG.waNumber;
 
-    const qrisImg = document.getElementById('qrisImg'); if(qrisImg && CONFIG.qrisImgSrc){ qrisImg.src = CONFIG.qrisImgSrc; }
-    const listRek = document.getElementById('listRek'); if(listRek){ listRek.innerHTML = (CONFIG.bank||[]).map(b=>`<li><b>${b.bank}</b> ${b.no} a.n. ${b.an}</li>`).join(''); }
+    // qris & rekening
+    const qrisImg = document.getElementById('qrisImg'); if (qrisImg && CFG.qrisImgSrc) qrisImg.src = CFG.qrisImgSrc;
+    const listRek = document.getElementById('listRek'); if (listRek) listRek.innerHTML = (CFG.bank || []).map(b=>`<li><b>${b.bank}</b> ${b.no} a.n. ${b.an}</li>`).join('');
 
     // Delivery toggle
-    const metodeEls = document.querySelectorAll('input[name="metode"]');
     const deliveryWrap = document.getElementById('deliveryWrap');
     function toggleDelivery(){ const m = document.querySelector('input[name="metode"]:checked').value; deliveryWrap.style.display = (m!=='pickup') ? 'block' : 'none'; }
-    metodeEls.forEach(r=> r.addEventListener('change', toggleDelivery)); toggleDelivery();
+    document.querySelectorAll('input[name="metode"]').forEach(r=> r.addEventListener('change', toggleDelivery)); toggleDelivery();
 
     // Total
     const varianSel = document.getElementById('varian');
@@ -256,8 +351,8 @@
       totalBox.textContent = `Total: ${rupiah(total)} (Subtotal ${rupiah(sub)}${ship?`, Ongkir ${rupiah(ship)}`:''})`;
       return {subtotal:sub, total, ship};
     }
-    varianSel.addEventListener('change', hitungTotal); qtyEl.addEventListener('input', hitungTotal); zonaSel.addEventListener('change', hitungTotal);
-    hitungTotal();
+    [varianSel, qtyEl, zonaSel].forEach(el => el.addEventListener('input', hitungTotal));
+    varianSel.addEventListener('change', hitungTotal); zonaSel.addEventListener('change', hitungTotal); hitungTotal();
 
     // Invoice helpers
     function fillInvoice(inv){
@@ -273,23 +368,19 @@
       items.innerHTML = `<tr><td>${inv.varian}</td><td>${inv.qty}</td><td>${rupiah(inv.hargaVarian)}</td><td>${rupiah(sub)}</td></tr>`;
       document.getElementById('invOngkir').textContent = rupiah(inv.ongkir||0);
       document.getElementById('invTotal').textContent = rupiah(inv.total||sub+(inv.ongkir||0));
-      document.getElementById('invNote').textContent = CONFIG.invoice.footerNote || '';
+      document.getElementById('invNote').textContent = CFG.invoice.footerNote || '';
     }
     function openModal(){ document.getElementById('modal').classList.add('open'); }
     function closeModal(){ document.getElementById('modal').classList.remove('open'); }
     document.getElementById('btnClose').addEventListener('click', closeModal);
-    document.getElementById('btnPrint').addEventListener('click', ()=>{ window.print(); });
+    document.getElementById('btnPrint').addEventListener('click', ()=> window.print());
 
-    // Generate invoice lokal (fallback)
-    function genLocalInvoice(prefix = (CONFIG.invoice?.prefix || 'INV-BRJ-')){
+    function genLocalInvoice(prefix = (CFG.invoice?.prefix || 'INV-BRJ-')){
       const now = new Date(); const pad=(x,n=2)=>String(x).padStart(n,'0');
       return `${prefix}${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;
     }
 
-    // Submit (API + fallback WA + MODAL WAJIB MUNCUL)
-    const form = document.getElementById('orderForm');
-    const msg = document.getElementById('orderMsg');
-
+    // open WA helper
     function openWA(payload){
       const lines = [
         'Halo Bakpia Rasa Jogja, saya ingin pesan:',
@@ -302,8 +393,13 @@
         `Pembayaran: ${payload.pay}`,
         `Total: Rp ${(Number(payload.total)||0).toLocaleString('id-ID')}`
       ].filter(Boolean).join('\n');
-      window.open(`https://wa.me/${CONFIG.waNumber}?text=${encodeURIComponent(lines)}`,'_blank');
+      const wa = String(CFG.waNumber).replace(/[^\d]/g,'');
+      window.open(`https://wa.me/${wa}?text=${encodeURIComponent(lines)}`,'_blank');
     }
+
+    // submit
+    const form = document.getElementById('orderForm');
+    const msg = document.getElementById('orderMsg');
 
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
@@ -320,8 +416,8 @@
       };
 
       try{
-        if(!CONFIG.apiBase) throw new Error('API belum dikonfigurasi');
-        const res = await fetch(`${CONFIG.apiBase}/api/orders`, {
+        if(!CFG.apiBase) throw new Error('API belum dikonfigurasi');
+        const res = await fetch(`${CFG.apiBase}/api/orders`, {
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body: JSON.stringify(basePayload)
@@ -345,304 +441,85 @@
       }
     });
 
-    // Quick bindings
+    // tombol fungsi / koneksi
+    function getVarianHarga(){ const sel=varianSel; const harga=Number(sel?.selectedOptions?.[0]?.dataset?.price||0); return { nama: sel?.value||'Bakpia', harga }; }
+    function buildWATextQuick(){
+      const qty = Number(qtyEl?.value || 1);
+      const { nama, harga } = getVarianHarga();
+      const perkiraan = (harga || 0) * qty;
+      return [
+        'Halo Bakpia Rasa Jogja, saya mau pesan:',
+        `Varian: ${nama}`,
+        `Jumlah: ${qty} box`,
+        `Perkiraan total (belum ongkir): Rp ${perkiraan.toLocaleString('id-ID')}`,
+        '', 'Bisa diproses ya? 🙏'
+      ].join('\n');
+    }
+    const btnPesanWA = document.getElementById('btnPesanWA');
+    if (btnPesanWA) btnPesanWA.addEventListener('click', (e)=>{ e.preventDefault(); const wa=String(CFG.waNumber).replace(/[^\d]/g,''); window.open(`https://wa.me/${wa}?text=${encodeURIComponent(buildWATextQuick())}`,'_blank'); });
+    const btnPesanSekarang = document.getElementById('btnPesanSekarang');
+    if (btnPesanSekarang) btnPesanSekarang.addEventListener('click', (e)=>{ e.preventDefault(); document.getElementById('order').scrollIntoView({behavior:'smooth'}); setTimeout(()=> (document.querySelector('input[name="nama"]')||qtyEl)?.focus(),300); });
+
+    // smooth anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',(e)=>{
+        const id=a.getAttribute('href'); if(!id || id==='#') return;
+        const el=document.querySelector(id); if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
+      });
+    });
+
+    // Pesan Varian Ini
     document.querySelectorAll('.order-var').forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        const v = btn.getAttribute('data-varian');
-        const p = btn.getAttribute('data-price');
-        const sel = document.getElementById('varian');
-        [...sel.options].forEach(o=>{ if(o.value===v) sel.value=v; });
-        if(p){ sel.selectedOptions[0].dataset.price = p; }
-        document.getElementById('qty').focus();
+        const v=btn.getAttribute('data-varian'); const p=btn.getAttribute('data-price');
+        [...varianSel.options].forEach(o=>{ if(o.value===v) varianSel.value=v; });
+        if(p){ varianSel.selectedOptions[0].dataset.price=p; }
+        document.getElementById('order').scrollIntoView({behavior:'smooth'});
+        setTimeout(()=> qtyEl?.focus(), 300);
         hitungTotal();
       });
     });
+
+    // payment toggle
+    (function bindPaymentToggle(){
+      const wraps={ qris:document.getElementById('qrisWrap'), transfer:document.getElementById('transferWrap') };
+      function applyPayUI(){ const v=document.querySelector('input[name="pay"]:checked')?.value || 'qris'; if(wraps.qris) wraps.qris.style.display=(v==='qris')?'block':'none'; if(wraps.transfer) wraps.transfer.style.display=(v==='transfer')?'block':'none'; }
+      document.querySelectorAll('input[name="pay"]').forEach(r=> r.addEventListener('change', applyPayUI));
+      applyPayUI();
+    })();
+
+    // copy detail
+    (function bindCopyDetail(){
+      const btn=document.getElementById('copyBtn'); if(!btn) return;
+      btn.addEventListener('click', async ()=>{
+        const data=Object.fromEntries(new FormData(form).entries());
+        const harga=Number(varianSel?.selectedOptions?.[0]?.dataset?.price || 0);
+        const qty=Number(data.qty||1); const metode=document.querySelector('input[name="metode"]:checked')?.value||'-';
+        const ong=(metode==='pickup')?0: Number(zonaSel?.selectedOptions?.[0]?.dataset?.ongkir || 0);
+        const sub=harga*qty; const tot=sub+ong;
+        const lines=[
+          'Detail Pesanan — Bakpia Rasa Jogja',
+          `Nama: ${data.nama||'-'}`,
+          `No WA: ${data.wa||'-'}`,
+          `Varian: ${data.varian||varianSel?.value||'-'}`,
+          `Jumlah: ${qty} box`,
+          `Metode: ${metode}${zonaSel?.value?` / ${zonaSel.value}`:''}`,
+          data.alamat?`Alamat: ${data.alamat}`:'',
+          `Pembayaran: ${data.pay||'-'}`,
+          `Subtotal: Rp ${sub.toLocaleString('id-ID')}`,
+          `Ongkir: Rp ${ong.toLocaleString('id-ID')}`,
+          `TOTAL: Rp ${tot.toLocaleString('id-ID')}`
+        ].filter(Boolean).join('\n');
+        try{ await navigator.clipboard.writeText(lines); msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin ✅'; }
+        catch{ const ta=document.createElement('textarea'); ta.value=lines; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin (fallback) ✅'; }
+      });
+    })();
+
+    // normalisasi WA input
+    (function bindWAValidation(){
+      const wa=document.querySelector('input[name="wa"]'); if(!wa) return;
+      wa.addEventListener('blur', ()=>{ const only=wa.value.replace(/[^\d]/g,''); wa.value = only.startsWith('0') ? '62'+only.slice(1) : only; });
+    })();
   </script>
-  <script>
-// ======================
-// KONEKSI SEMUA TOMBOL
-// ======================
-
-// helper bikin teks WA dari payload sederhana (dipakai CTA navbar/hero)
-function buildWATextQuick() {
-  const sel = document.getElementById('varian');
-  const qty = document.getElementById('qty');
-  const varian = sel?.value || 'Bakpia (pilih di form)';
-  const harga = sel?.selectedOptions?.[0]?.dataset?.price || 0;
-  const total = (Number(harga)||0) * (Number(qty?.value||1));
-  const lines = [
-    'Halo Bakpia Rasa Jogja, saya mau pesan:',
-    `Varian: ${varian}`,
-    `Jumlah: ${qty?.value || 1} box`,
-    `Perkiraan total (belum ongkir): Rp ${Number(total).toLocaleString('id-ID')}`,
-    '',
-    'Bisa diproses ya? 🙏'
-  ];
-  return lines.join('\n');
-}
-
-// 1) Tombol WhatsApp (navbar & hero) — buka wa.me dengan draft pesan cepat
-function bindWhatsAppCTAs() {
-  const targets = [
-    document.getElementById('cta-wa'),
-    document.getElementById('hero-wa')
-  ].filter(Boolean);
-
-  targets.forEach(a => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      const text = buildWATextQuick();
-      const wa = (window.CONFIG?.waNumber || '6282326201440').replace(/[^\d]/g,'');
-      window.open(`https://wa.me/${wa}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-    });
-  });
-}
-bindWhatsAppCTAs();
-
-// 2) Tombol "Pesan Varian Ini" — sudah diisi pada script utama,
-//    tapi kita tambahkan fokus & scroll ke form yang lebih halus
-document.querySelectorAll('.order-var').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const order = document.getElementById('order');
-    if (order) order.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setTimeout(()=> document.getElementById('qty')?.focus(), 300);
-  });
-});
-
-// 3) Toggle Payment UI (QRIS / Transfer / COD) — tampil / sembunyi sesuai pilihan
-(function bindPaymentToggle(){
-  const payRadios = document.querySelectorAll('input[name="pay"]');
-  const qrisWrap = document.getElementById('qrisWrap');
-  const transferWrap = document.getElementById('transferWrap');
-  function applyPayUI(){
-    const val = document.querySelector('input[name="pay"]:checked')?.value || 'qris';
-    if (qrisWrap) qrisWrap.style.display = (val==='qris') ? 'block' : 'none';
-    if (transferWrap) transferWrap.style.display = (val==='transfer') ? 'block' : 'none';
-  }
-  payRadios.forEach(r=> r.addEventListener('change', applyPayUI));
-  applyPayUI();
-})();
-
-// 4) Tombol "Salin Detail Pesanan" — copy ke clipboard
-(function bindCopyDetail(){
-  const btn = document.getElementById('copyBtn');
-  const form = document.getElementById('orderForm');
-  const msg = document.getElementById('orderMsg');
-  if (!btn || !form) return;
-
-  btn.addEventListener('click', async ()=>{
-    const data = Object.fromEntries(new FormData(form).entries());
-    const varianSel = document.getElementById('varian');
-    const harga = Number(varianSel?.selectedOptions?.[0]?.dataset?.price || 0);
-    const qty = Number(data.qty || 1);
-    const metode = document.querySelector('input[name="metode"]:checked')?.value || '-';
-    const zonaSel = document.getElementById('zona');
-    const ongkir = (metode==='pickup') ? 0 : Number(zonaSel?.selectedOptions?.[0]?.dataset?.ongkir || 0);
-    const subtotal = harga * qty;
-    const total = subtotal + ongkir;
-
-    const lines = [
-      'Detail Pesanan — Bakpia Rasa Jogja',
-      `Nama: ${data.nama || '-'}`,
-      `No WA: ${data.wa || '-'}`,
-      `Varian: ${data.varian || varianSel?.value || '-'}`,
-      `Jumlah: ${qty} box`,
-      `Metode: ${metode}${zonaSel?.value?` / ${zonaSel.value}`:''}`,
-      data.alamat ? `Alamat: ${data.alamat}` : '',
-      `Pembayaran: ${data.pay || '-'}`,
-      `Subtotal: Rp ${subtotal.toLocaleString('id-ID')}`,
-      `Ongkir: Rp ${ongkir.toLocaleString('id-ID')}`,
-      `TOTAL: Rp ${total.toLocaleString('id-ID')}`
-    ].filter(Boolean).join('\n');
-
-    try{
-      await navigator.clipboard.writeText(lines);
-      if (msg) { msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin ke clipboard ✅'; }
-    }catch{
-      // fallback buku alamat (mobile safari lama)
-      const ta = document.createElement('textarea');
-      ta.value = lines; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-      if (msg) { msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin (fallback) ✅'; }
-    }
-  });
-})();
-
-// 5) Smooth scroll untuk link menu yang menuju id section
-(function smoothAnchors(){
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      const id = a.getAttribute('href');
-      if (!id || id === '#') return;
-      const el = document.querySelector(id);
-      if (el) { e.preventDefault(); el.scrollIntoView({ behavior:'smooth', block:'start' }); }
-    });
-  });
-})();
-
-// 6) Validasi ringan nomor WA (hanya angka) saat blur
-(function bindWAValidation(){
-  const wa = document.querySelector('input[name="wa"]');
-  if (!wa) return;
-  wa.addEventListener('blur', ()=>{
-    const only = wa.value.replace(/[^\d]/g,'');
-    wa.value = only.startsWith('0') ? '62' + only.slice(1) : only; // jadikan format internasional sederhana
-  });
-})();
-
-// 7) Pastikan gambar QRIS & rekening tampil dari CONFIG (kalau belum terset)
-(function ensureConfigVisuals(){
-  const qrisImg = document.getElementById('qrisImg');
-  if (qrisImg && !qrisImg.src && window.CONFIG?.qrisImgSrc) qrisImg.src = window.CONFIG.qrisImgSrc;
-
-  const listRek = document.getElementById('listRek');
-  if (listRek && listRek.childElementCount === 0 && Array.isArray(window.CONFIG?.bank)) {
-    listRek.innerHTML = window.CONFIG.bank.map(b=>`<li><b>${b.bank}</b> ${b.no} a.n. ${b.an}</li>`).join('');
-  }
-})();
-</script>
-<script>
-// ======================
-// KONEKSI SEMUA TOMBOL
-// ======================
-
-// helper bikin teks WA dari payload sederhana (dipakai CTA navbar/hero)
-function buildWATextQuick() {
-  const sel = document.getElementById('varian');
-  const qty = document.getElementById('qty');
-  const varian = sel?.value || 'Bakpia (pilih di form)';
-  const harga = sel?.selectedOptions?.[0]?.dataset?.price || 0;
-  const total = (Number(harga)||0) * (Number(qty?.value||1));
-  const lines = [
-    'Halo Bakpia Rasa Jogja, saya mau pesan:',
-    `Varian: ${varian}`,
-    `Jumlah: ${qty?.value || 1} box`,
-    `Perkiraan total (belum ongkir): Rp ${Number(total).toLocaleString('id-ID')}`,
-    '',
-    'Bisa diproses ya? 🙏'
-  ];
-  return lines.join('\n');
-}
-
-// 1) Tombol WhatsApp (navbar & hero) — buka wa.me dengan draft pesan cepat
-function bindWhatsAppCTAs() {
-  const targets = [
-    document.getElementById('cta-wa'),
-    document.getElementById('hero-wa')
-  ].filter(Boolean);
-
-  targets.forEach(a => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      const text = buildWATextQuick();
-      const wa = (window.CONFIG?.waNumber || '6282326201440').replace(/[^\d]/g,'');
-      window.open(`https://wa.me/${wa}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-    });
-  });
-}
-bindWhatsAppCTAs();
-
-// 2) Tombol "Pesan Varian Ini" — sudah diisi pada script utama,
-//    tapi kita tambahkan fokus & scroll ke form yang lebih halus
-document.querySelectorAll('.order-var').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const order = document.getElementById('order');
-    if (order) order.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setTimeout(()=> document.getElementById('qty')?.focus(), 300);
-  });
-});
-
-// 3) Toggle Payment UI (QRIS / Transfer / COD) — tampil / sembunyi sesuai pilihan
-(function bindPaymentToggle(){
-  const payRadios = document.querySelectorAll('input[name="pay"]');
-  const qrisWrap = document.getElementById('qrisWrap');
-  const transferWrap = document.getElementById('transferWrap');
-  function applyPayUI(){
-    const val = document.querySelector('input[name="pay"]:checked')?.value || 'qris';
-    if (qrisWrap) qrisWrap.style.display = (val==='qris') ? 'block' : 'none';
-    if (transferWrap) transferWrap.style.display = (val==='transfer') ? 'block' : 'none';
-  }
-  payRadios.forEach(r=> r.addEventListener('change', applyPayUI));
-  applyPayUI();
-})();
-
-// 4) Tombol "Salin Detail Pesanan" — copy ke clipboard
-(function bindCopyDetail(){
-  const btn = document.getElementById('copyBtn');
-  const form = document.getElementById('orderForm');
-  const msg = document.getElementById('orderMsg');
-  if (!btn || !form) return;
-
-  btn.addEventListener('click', async ()=>{
-    const data = Object.fromEntries(new FormData(form).entries());
-    const varianSel = document.getElementById('varian');
-    const harga = Number(varianSel?.selectedOptions?.[0]?.dataset?.price || 0);
-    const qty = Number(data.qty || 1);
-    const metode = document.querySelector('input[name="metode"]:checked')?.value || '-';
-    const zonaSel = document.getElementById('zona');
-    const ongkir = (metode==='pickup') ? 0 : Number(zonaSel?.selectedOptions?.[0]?.dataset?.ongkir || 0);
-    const subtotal = harga * qty;
-    const total = subtotal + ongkir;
-
-    const lines = [
-      'Detail Pesanan — Bakpia Rasa Jogja',
-      `Nama: ${data.nama || '-'}`,
-      `No WA: ${data.wa || '-'}`,
-      `Varian: ${data.varian || varianSel?.value || '-'}`,
-      `Jumlah: ${qty} box`,
-      `Metode: ${metode}${zonaSel?.value?` / ${zonaSel.value}`:''}`,
-      data.alamat ? `Alamat: ${data.alamat}` : '',
-      `Pembayaran: ${data.pay || '-'}`,
-      `Subtotal: Rp ${subtotal.toLocaleString('id-ID')}`,
-      `Ongkir: Rp ${ongkir.toLocaleString('id-ID')}`,
-      `TOTAL: Rp ${total.toLocaleString('id-ID')}`
-    ].filter(Boolean).join('\n');
-
-    try{
-      await navigator.clipboard.writeText(lines);
-      if (msg) { msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin ke clipboard ✅'; }
-    }catch{
-      // fallback buku alamat (mobile safari lama)
-      const ta = document.createElement('textarea');
-      ta.value = lines; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-      if (msg) { msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin (fallback) ✅'; }
-    }
-  });
-})();
-
-// 5) Smooth scroll untuk link menu yang menuju id section
-(function smoothAnchors(){
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      const id = a.getAttribute('href');
-      if (!id || id === '#') return;
-      const el = document.querySelector(id);
-      if (el) { e.preventDefault(); el.scrollIntoView({ behavior:'smooth', block:'start' }); }
-    });
-  });
-})();
-
-// 6) Validasi ringan nomor WA (hanya angka) saat blur
-(function bindWAValidation(){
-  const wa = document.querySelector('input[name="wa"]');
-  if (!wa) return;
-  wa.addEventListener('blur', ()=>{
-    const only = wa.value.replace(/[^\d]/g,'');
-    wa.value = only.startsWith('0') ? '62' + only.slice(1) : only; // jadikan format internasional sederhana
-  });
-})();
-
-// 7) Pastikan gambar QRIS & rekening tampil dari CONFIG (kalau belum terset)
-(function ensureConfigVisuals(){
-  const qrisImg = document.getElementById('qrisImg');
-  if (qrisImg && !qrisImg.src && window.CONFIG?.qrisImgSrc) qrisImg.src = window.CONFIG.qrisImgSrc;
-
-  const listRek = document.getElementById('listRek');
-  if (listRek && listRek.childElementCount === 0 && Array.isArray(window.CONFIG?.bank)) {
-    listRek.innerHTML = window.CONFIG.bank.map(b=>`<li><b>${b.bank}</b> ${b.no} a.n. ${b.an}</li>`).join('');
-  }
-})();
-</script>
 </body>
 </html>
