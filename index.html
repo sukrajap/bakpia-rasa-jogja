@@ -25,7 +25,16 @@
     @media (max-width:960px){.hero .wrap,.about-grid,.contact-grid,.foot{grid-template-columns:1fr}}
     @media (max-width:840px){.products-grid,.testi-grid,.steps-grid{grid-template-columns:1fr 1fr}}
     @media (max-width:560px){.menu{display:none}.products-grid,.testi-grid,.steps-grid{grid-template-columns:1fr}.hero .wrap{grid-template-columns:1fr}}
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);z-index:80}.modal.open{display:flex}.modal-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);max-width:780px;width:95%;padding:18px}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.modal-body{max-height:70vh;overflow:auto}.invoice{font-size:.95rem}.invoice h3{font-family:'Playfair Display',serif;margin:0 0 8px}.inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.inv-table{width:100%;border-collapse:collapse;margin-top:12px}.inv-table th,.inv-table td{border:1px solid #eee;padding:8px;text-align:left}.print-area{padding:6px}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);z-index:80}
+    .modal.open{display:flex}
+    .modal-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);max-width:780px;width:95%;padding:18px}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .modal-body{max-height:70vh;overflow:auto}
+    .invoice{font-size:.95rem}.invoice h3{font-family:'Playfair Display',serif;margin:0 0 8px}
+    .inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .inv-table{width:100%;border-collapse:collapse;margin-top:12px}
+    .inv-table th,.inv-table td{border:1px solid #eee;padding:8px;text-align:left}
+    .print-area{padding:6px}
   </style>
 </head>
 <body>
@@ -202,9 +211,10 @@
     </div>
   </div>
 
+  <!-- CONFIG harus dimuat lebih dulu -->
   <script src="config/config.js"></script>
   <script>
-    // Default + override from config/config.js
+    // Default + override dari config/config.js
     const DEFAULT_CONFIG = {
       apiBase: '',
       waNumber: '6282326201440',
@@ -217,7 +227,7 @@
     const CONFIG = Object.assign({}, DEFAULT_CONFIG, window.CONFIG||{});
     const rupiah = (x)=> 'Rp ' + (Number(x)||0).toLocaleString('id-ID');
 
-    // Contacts/branding
+    // Branding
     document.getElementById('year').textContent = new Date().getFullYear();
     document.getElementById('invCompanyAddr').textContent = CONFIG.invoice.company.address || CONFIG.alamatToko;
     document.getElementById('invCompanyPhone').textContent = CONFIG.invoice.company.phone || '';
@@ -228,13 +238,10 @@
     // Delivery toggle
     const metodeEls = document.querySelectorAll('input[name="metode"]');
     const deliveryWrap = document.getElementById('deliveryWrap');
-    function toggleDelivery(){
-      const metode = document.querySelector('input[name="metode"]:checked').value;
-      deliveryWrap.style.display = (metode!=='pickup') ? 'block' : 'none';
-    }
+    function toggleDelivery(){ const m = document.querySelector('input[name="metode"]:checked').value; deliveryWrap.style.display = (m!=='pickup') ? 'block' : 'none'; }
     metodeEls.forEach(r=> r.addEventListener('change', toggleDelivery)); toggleDelivery();
 
-    // Total calculation
+    // Total
     const varianSel = document.getElementById('varian');
     const qtyEl = document.getElementById('qty');
     const zonaSel = document.getElementById('zona');
@@ -252,7 +259,7 @@
     varianSel.addEventListener('change', hitungTotal); qtyEl.addEventListener('input', hitungTotal); zonaSel.addEventListener('change', hitungTotal);
     hitungTotal();
 
-    // Fill invoice UI
+    // Invoice helpers
     function fillInvoice(inv){
       const now = new Date();
       document.getElementById('invId').textContent = inv.invoiceId || '-';
@@ -273,48 +280,72 @@
     document.getElementById('btnClose').addEventListener('click', closeModal);
     document.getElementById('btnPrint').addEventListener('click', ()=>{ window.print(); });
 
-    // Submit to API with fallback to WA
+    // Generate invoice lokal (fallback)
+    function genLocalInvoice(prefix = (CONFIG.invoice?.prefix || 'INV-BRJ-')){
+      const now = new Date(); const pad=(x,n=2)=>String(x).padStart(n,'0');
+      return `${prefix}${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;
+    }
+
+    // Submit (API + fallback WA + MODAL WAJIB MUNCUL)
     const form = document.getElementById('orderForm');
     const msg = document.getElementById('orderMsg');
-    async function submitToAPI(data, totals){
-      const res = await fetch(`${CONFIG.apiBase}/api/orders`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({
-        ...data, hargaVarian: hargaVarian(), ongkir: totals.ship, subtotal: totals.subtotal, total: totals.total
-      })});
-      return res.json();
+
+    function openWA(payload){
+      const lines = [
+        'Halo Bakpia Rasa Jogja, saya ingin pesan:',
+        `Nama: ${payload.nama}`,
+        `No WA: ${payload.wa}`,
+        `Varian: ${payload.varian}`,
+        `Jumlah: ${payload.qty} box`,
+        `Metode: ${payload.metode}${payload.zona?` / ${payload.zona}`:''}`,
+        payload.alamat?`Alamat: ${payload.alamat}`:'',
+        `Pembayaran: ${payload.pay}`,
+        `Total: Rp ${(Number(payload.total)||0).toLocaleString('id-ID')}`
+      ].filter(Boolean).join('\n');
+      window.open(`https://wa.me/${CONFIG.waNumber}?text=${encodeURIComponent(lines)}`,'_blank');
     }
+
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
       const totals = hitungTotal();
       msg.textContent = 'Mengirim order...';
+
+      const basePayload = {
+        ...data,
+        hargaVarian: hargaVarian(),
+        ongkir: totals.ship,
+        subtotal: totals.subtotal,
+        total: totals.total
+      };
+
       try{
-        if(!CONFIG.apiBase){ throw new Error('API belum dikonfigurasi'); }
-        const out = await submitToAPI(data, totals);
-        if(out.ok){
-          const payload = { ...data, ...out, hargaVarian: hargaVarian(), ongkir: totals.ship, total: totals.total };
+        if(!CONFIG.apiBase) throw new Error('API belum dikonfigurasi');
+        const res = await fetch(`${CONFIG.apiBase}/api/orders`, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify(basePayload)
+        });
+        const out = await res.json().catch(()=> ({}));
+        if(res.ok && out && out.ok){
+          const payload = { ...basePayload, ...out, invoiceId: out.invoiceId || genLocalInvoice() };
           fillInvoice(payload); openModal();
-          msg.textContent = `Order terkirim. Invoice: ${out.invoiceId}`;
-        } else {
-          throw new Error('Server mengembalikan error');
+          msg.textContent = `Order sukses. Invoice: ${payload.invoiceId}`;
+        }else{
+          const payload = { ...basePayload, invoiceId: genLocalInvoice() };
+          fillInvoice(payload); openModal();
+          msg.textContent = 'Server error. Invoice lokal dibuat & membuka WhatsApp...';
+          openWA(payload);
         }
       }catch(err){
-        msg.textContent = 'API belum siap. Mengalihkan ke WhatsApp...';
-        const lines = [
-          'Halo Bakpia Rasa Jogja, saya ingin pesan:',
-          `Nama: ${data.nama}`,
-          `No WA: ${data.wa}`,
-          `Varian: ${data.varian}`,
-          `Jumlah: ${data.qty} box`,
-          `Metode: ${data.metode}${data.zona?` / ${data.zona}`:''}`,
-          data.alamat?`Alamat: ${data.alamat}`:'',
-          `Pembayaran: ${data.pay}`,
-          `Total: ${rupiah(totals.total)}`
-        ].filter(Boolean).join('\n');
-        window.open(`https://wa.me/${CONFIG.waNumber}?text=${encodeURIComponent(lines)}`,'_blank');
+        const payload = { ...basePayload, invoiceId: genLocalInvoice() };
+        fillInvoice(payload); openModal();
+        msg.textContent = 'API tidak dapat dijangkau. Invoice lokal dibuat & membuka WhatsApp...';
+        openWA(payload);
       }
     });
 
-    // Open from product cards
+    // Quick bindings
     document.querySelectorAll('.order-var').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const v = btn.getAttribute('data-varian');
@@ -326,7 +357,6 @@
         hitungTotal();
       });
     });
-
   </script>
 </body>
 </html>
