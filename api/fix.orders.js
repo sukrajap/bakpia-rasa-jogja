@@ -73,11 +73,9 @@ module.exports = async (req, res) => {
       `TOTAL   : ${formatRupiah(grand)}`,
       '',
       'Terima kasih 🙏',
-    ]
-      .filter(Boolean)
-      .join('\n');
+    ].filter(Boolean).join('\n');
 
-    // Kirim WA ke merchant (opsional, tapi dianjurkan)
+    // Kirim WA ke merchant (opsional, disarankan)
     let waResult = null;
     const PHONE_ID = process.env.WA_PHONE_NUMBER_ID;
     const TOKEN = process.env.WA_ACCESS_TOKEN;
