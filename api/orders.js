@@ -1,13 +1,22 @@
 // api/orders.js — Vercel Serverless Function (Node.js 20+)
 
-function cors(res) {
+function cors(req, res) {
   res.setHeader('Access-Control-Allow-Origin', process.env.ORIGIN || '*');
+  res.setHeader('Vary', 'Origin');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  const requested = req.headers['access-control-request-headers'];
+  res.setHeader('Access-Control-Allow-Headers', requested || 'Content-Type, Accept');
+
+  res.setHeader('Access-Control-Max-Age', '600'); // cache preflight 10 menit
 }
 
 function formatRupiah(n) {
-  return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n || 0);
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    maximumFractionDigits: 0
+  }).format(n || 0);
 }
 
 function genInvoice(prefix = 'INV-', now = new Date()) {
@@ -36,7 +45,7 @@ async function sendWhatsApp({ phoneNumberId, accessToken, to, text }) {
 }
 
 module.exports = async (req, res) => {
-  cors(res);
+  cors(req, res);
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
@@ -73,9 +82,11 @@ module.exports = async (req, res) => {
       `TOTAL   : ${formatRupiah(grand)}`,
       '',
       'Terima kasih 🙏',
-    ].filter(Boolean).join('\n');
+    ]
+      .filter(Boolean)
+      .join('\n');
 
-    // Kirim WA ke merchant (opsional, disarankan)
+    // Kirim WA ke merchant (opsional)
     let waResult = null;
     const PHONE_ID = process.env.WA_PHONE_NUMBER_ID;
     const TOKEN = process.env.WA_ACCESS_TOKEN;
