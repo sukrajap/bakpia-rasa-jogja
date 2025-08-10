@@ -1,5 +1,5 @@
 // api/orders.js — Vercel Serverless Function
-const fetch = globalThis.fetch || require('node-fetch');
+fetch('URL', options)
 
 function cors(res) {
   res.setHeader('Access-Control-Allow-Origin', process.env.ORIGIN || '*');
