@@ -358,5 +358,291 @@
       });
     });
   </script>
+  <script>
+// ======================
+// KONEKSI SEMUA TOMBOL
+// ======================
+
+// helper bikin teks WA dari payload sederhana (dipakai CTA navbar/hero)
+function buildWATextQuick() {
+  const sel = document.getElementById('varian');
+  const qty = document.getElementById('qty');
+  const varian = sel?.value || 'Bakpia (pilih di form)';
+  const harga = sel?.selectedOptions?.[0]?.dataset?.price || 0;
+  const total = (Number(harga)||0) * (Number(qty?.value||1));
+  const lines = [
+    'Halo Bakpia Rasa Jogja, saya mau pesan:',
+    `Varian: ${varian}`,
+    `Jumlah: ${qty?.value || 1} box`,
+    `Perkiraan total (belum ongkir): Rp ${Number(total).toLocaleString('id-ID')}`,
+    '',
+    'Bisa diproses ya? 🙏'
+  ];
+  return lines.join('\n');
+}
+
+// 1) Tombol WhatsApp (navbar & hero) — buka wa.me dengan draft pesan cepat
+function bindWhatsAppCTAs() {
+  const targets = [
+    document.getElementById('cta-wa'),
+    document.getElementById('hero-wa')
+  ].filter(Boolean);
+
+  targets.forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const text = buildWATextQuick();
+      const wa = (window.CONFIG?.waNumber || '6282326201440').replace(/[^\d]/g,'');
+      window.open(`https://wa.me/${wa}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    });
+  });
+}
+bindWhatsAppCTAs();
+
+// 2) Tombol "Pesan Varian Ini" — sudah diisi pada script utama,
+//    tapi kita tambahkan fokus & scroll ke form yang lebih halus
+document.querySelectorAll('.order-var').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const order = document.getElementById('order');
+    if (order) order.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(()=> document.getElementById('qty')?.focus(), 300);
+  });
+});
+
+// 3) Toggle Payment UI (QRIS / Transfer / COD) — tampil / sembunyi sesuai pilihan
+(function bindPaymentToggle(){
+  const payRadios = document.querySelectorAll('input[name="pay"]');
+  const qrisWrap = document.getElementById('qrisWrap');
+  const transferWrap = document.getElementById('transferWrap');
+  function applyPayUI(){
+    const val = document.querySelector('input[name="pay"]:checked')?.value || 'qris';
+    if (qrisWrap) qrisWrap.style.display = (val==='qris') ? 'block' : 'none';
+    if (transferWrap) transferWrap.style.display = (val==='transfer') ? 'block' : 'none';
+  }
+  payRadios.forEach(r=> r.addEventListener('change', applyPayUI));
+  applyPayUI();
+})();
+
+// 4) Tombol "Salin Detail Pesanan" — copy ke clipboard
+(function bindCopyDetail(){
+  const btn = document.getElementById('copyBtn');
+  const form = document.getElementById('orderForm');
+  const msg = document.getElementById('orderMsg');
+  if (!btn || !form) return;
+
+  btn.addEventListener('click', async ()=>{
+    const data = Object.fromEntries(new FormData(form).entries());
+    const varianSel = document.getElementById('varian');
+    const harga = Number(varianSel?.selectedOptions?.[0]?.dataset?.price || 0);
+    const qty = Number(data.qty || 1);
+    const metode = document.querySelector('input[name="metode"]:checked')?.value || '-';
+    const zonaSel = document.getElementById('zona');
+    const ongkir = (metode==='pickup') ? 0 : Number(zonaSel?.selectedOptions?.[0]?.dataset?.ongkir || 0);
+    const subtotal = harga * qty;
+    const total = subtotal + ongkir;
+
+    const lines = [
+      'Detail Pesanan — Bakpia Rasa Jogja',
+      `Nama: ${data.nama || '-'}`,
+      `No WA: ${data.wa || '-'}`,
+      `Varian: ${data.varian || varianSel?.value || '-'}`,
+      `Jumlah: ${qty} box`,
+      `Metode: ${metode}${zonaSel?.value?` / ${zonaSel.value}`:''}`,
+      data.alamat ? `Alamat: ${data.alamat}` : '',
+      `Pembayaran: ${data.pay || '-'}`,
+      `Subtotal: Rp ${subtotal.toLocaleString('id-ID')}`,
+      `Ongkir: Rp ${ongkir.toLocaleString('id-ID')}`,
+      `TOTAL: Rp ${total.toLocaleString('id-ID')}`
+    ].filter(Boolean).join('\n');
+
+    try{
+      await navigator.clipboard.writeText(lines);
+      if (msg) { msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin ke clipboard ✅'; }
+    }catch{
+      // fallback buku alamat (mobile safari lama)
+      const ta = document.createElement('textarea');
+      ta.value = lines; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      if (msg) { msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin (fallback) ✅'; }
+    }
+  });
+})();
+
+// 5) Smooth scroll untuk link menu yang menuju id section
+(function smoothAnchors(){
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const el = document.querySelector(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior:'smooth', block:'start' }); }
+    });
+  });
+})();
+
+// 6) Validasi ringan nomor WA (hanya angka) saat blur
+(function bindWAValidation(){
+  const wa = document.querySelector('input[name="wa"]');
+  if (!wa) return;
+  wa.addEventListener('blur', ()=>{
+    const only = wa.value.replace(/[^\d]/g,'');
+    wa.value = only.startsWith('0') ? '62' + only.slice(1) : only; // jadikan format internasional sederhana
+  });
+})();
+
+// 7) Pastikan gambar QRIS & rekening tampil dari CONFIG (kalau belum terset)
+(function ensureConfigVisuals(){
+  const qrisImg = document.getElementById('qrisImg');
+  if (qrisImg && !qrisImg.src && window.CONFIG?.qrisImgSrc) qrisImg.src = window.CONFIG.qrisImgSrc;
+
+  const listRek = document.getElementById('listRek');
+  if (listRek && listRek.childElementCount === 0 && Array.isArray(window.CONFIG?.bank)) {
+    listRek.innerHTML = window.CONFIG.bank.map(b=>`<li><b>${b.bank}</b> ${b.no} a.n. ${b.an}</li>`).join('');
+  }
+})();
+</script>
+<script>
+// ======================
+// KONEKSI SEMUA TOMBOL
+// ======================
+
+// helper bikin teks WA dari payload sederhana (dipakai CTA navbar/hero)
+function buildWATextQuick() {
+  const sel = document.getElementById('varian');
+  const qty = document.getElementById('qty');
+  const varian = sel?.value || 'Bakpia (pilih di form)';
+  const harga = sel?.selectedOptions?.[0]?.dataset?.price || 0;
+  const total = (Number(harga)||0) * (Number(qty?.value||1));
+  const lines = [
+    'Halo Bakpia Rasa Jogja, saya mau pesan:',
+    `Varian: ${varian}`,
+    `Jumlah: ${qty?.value || 1} box`,
+    `Perkiraan total (belum ongkir): Rp ${Number(total).toLocaleString('id-ID')}`,
+    '',
+    'Bisa diproses ya? 🙏'
+  ];
+  return lines.join('\n');
+}
+
+// 1) Tombol WhatsApp (navbar & hero) — buka wa.me dengan draft pesan cepat
+function bindWhatsAppCTAs() {
+  const targets = [
+    document.getElementById('cta-wa'),
+    document.getElementById('hero-wa')
+  ].filter(Boolean);
+
+  targets.forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const text = buildWATextQuick();
+      const wa = (window.CONFIG?.waNumber || '6282326201440').replace(/[^\d]/g,'');
+      window.open(`https://wa.me/${wa}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    });
+  });
+}
+bindWhatsAppCTAs();
+
+// 2) Tombol "Pesan Varian Ini" — sudah diisi pada script utama,
+//    tapi kita tambahkan fokus & scroll ke form yang lebih halus
+document.querySelectorAll('.order-var').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const order = document.getElementById('order');
+    if (order) order.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(()=> document.getElementById('qty')?.focus(), 300);
+  });
+});
+
+// 3) Toggle Payment UI (QRIS / Transfer / COD) — tampil / sembunyi sesuai pilihan
+(function bindPaymentToggle(){
+  const payRadios = document.querySelectorAll('input[name="pay"]');
+  const qrisWrap = document.getElementById('qrisWrap');
+  const transferWrap = document.getElementById('transferWrap');
+  function applyPayUI(){
+    const val = document.querySelector('input[name="pay"]:checked')?.value || 'qris';
+    if (qrisWrap) qrisWrap.style.display = (val==='qris') ? 'block' : 'none';
+    if (transferWrap) transferWrap.style.display = (val==='transfer') ? 'block' : 'none';
+  }
+  payRadios.forEach(r=> r.addEventListener('change', applyPayUI));
+  applyPayUI();
+})();
+
+// 4) Tombol "Salin Detail Pesanan" — copy ke clipboard
+(function bindCopyDetail(){
+  const btn = document.getElementById('copyBtn');
+  const form = document.getElementById('orderForm');
+  const msg = document.getElementById('orderMsg');
+  if (!btn || !form) return;
+
+  btn.addEventListener('click', async ()=>{
+    const data = Object.fromEntries(new FormData(form).entries());
+    const varianSel = document.getElementById('varian');
+    const harga = Number(varianSel?.selectedOptions?.[0]?.dataset?.price || 0);
+    const qty = Number(data.qty || 1);
+    const metode = document.querySelector('input[name="metode"]:checked')?.value || '-';
+    const zonaSel = document.getElementById('zona');
+    const ongkir = (metode==='pickup') ? 0 : Number(zonaSel?.selectedOptions?.[0]?.dataset?.ongkir || 0);
+    const subtotal = harga * qty;
+    const total = subtotal + ongkir;
+
+    const lines = [
+      'Detail Pesanan — Bakpia Rasa Jogja',
+      `Nama: ${data.nama || '-'}`,
+      `No WA: ${data.wa || '-'}`,
+      `Varian: ${data.varian || varianSel?.value || '-'}`,
+      `Jumlah: ${qty} box`,
+      `Metode: ${metode}${zonaSel?.value?` / ${zonaSel.value}`:''}`,
+      data.alamat ? `Alamat: ${data.alamat}` : '',
+      `Pembayaran: ${data.pay || '-'}`,
+      `Subtotal: Rp ${subtotal.toLocaleString('id-ID')}`,
+      `Ongkir: Rp ${ongkir.toLocaleString('id-ID')}`,
+      `TOTAL: Rp ${total.toLocaleString('id-ID')}`
+    ].filter(Boolean).join('\n');
+
+    try{
+      await navigator.clipboard.writeText(lines);
+      if (msg) { msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin ke clipboard ✅'; }
+    }catch{
+      // fallback buku alamat (mobile safari lama)
+      const ta = document.createElement('textarea');
+      ta.value = lines; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      if (msg) { msg.style.color='#2b6a2b'; msg.textContent='Detail pesanan disalin (fallback) ✅'; }
+    }
+  });
+})();
+
+// 5) Smooth scroll untuk link menu yang menuju id section
+(function smoothAnchors(){
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const el = document.querySelector(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior:'smooth', block:'start' }); }
+    });
+  });
+})();
+
+// 6) Validasi ringan nomor WA (hanya angka) saat blur
+(function bindWAValidation(){
+  const wa = document.querySelector('input[name="wa"]');
+  if (!wa) return;
+  wa.addEventListener('blur', ()=>{
+    const only = wa.value.replace(/[^\d]/g,'');
+    wa.value = only.startsWith('0') ? '62' + only.slice(1) : only; // jadikan format internasional sederhana
+  });
+})();
+
+// 7) Pastikan gambar QRIS & rekening tampil dari CONFIG (kalau belum terset)
+(function ensureConfigVisuals(){
+  const qrisImg = document.getElementById('qrisImg');
+  if (qrisImg && !qrisImg.src && window.CONFIG?.qrisImgSrc) qrisImg.src = window.CONFIG.qrisImgSrc;
+
+  const listRek = document.getElementById('listRek');
+  if (listRek && listRek.childElementCount === 0 && Array.isArray(window.CONFIG?.bank)) {
+    listRek.innerHTML = window.CONFIG.bank.map(b=>`<li><b>${b.bank}</b> ${b.no} a.n. ${b.an}</li>`).join('');
+  }
+})();
+</script>
 </body>
 </html>
